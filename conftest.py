@@ -39,10 +39,7 @@ def local_server():
 @pytest.fixture(scope="session")
 def base_url():
     """Returns the base url for the application."""
-    env_url = os.getenv("BASE_URL", "http://localhost:8000")
-    if "localhost" in env_url or "127.0.0.1" in env_url:
-        return env_url
-    return "http://localhost:8000"
+    return os.getenv("BASE_URL", "http://localhost:8000")
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args):
