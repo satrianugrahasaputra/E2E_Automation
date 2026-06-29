@@ -11,3 +11,9 @@ class LoginLocators:
     SAUCE_PASSWORD_INPUT = "#password"
     SAUCE_LOGIN_BUTTON = "#login-button"
     SAUCE_ERROR_MESSAGE = "[data-test='error']"
+
+    # Jateng OTS selectors
+    JATENG_USERNAME_INPUT = "[name='username']"
+    JATENG_PASSWORD_INPUT = "[name='password']"
+    JATENG_LOGIN_BUTTON = "#submitBtn"
+    JATENG_ERROR_MESSAGE = "#errorBox"
