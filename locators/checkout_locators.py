@@ -1,18 +1,28 @@
 class CheckoutLocators:
-    # Catalog/Dashboard Page
+    # --- Local site ---
     ADD_TO_CART_PRODUCT_1 = "#add-to-cart-1"
     ADD_TO_CART_PRODUCT_2 = "#add-to-cart-2"
     CART_BADGE = "#cart-badge"
     CART_BUTTON = "#cart-btn"
-
-    # Cart Page
     PROCEED_TO_CHECKOUT_BUTTON = "#checkout-btn"
     CART_TOTAL = "#cart-total"
-
-    # Checkout Page
     FIRST_NAME_INPUT = "#first-name"
     LAST_NAME_INPUT = "#last-name"
     POSTAL_CODE_INPUT = "#postal-code"
     FINISH_BUTTON = "#finish-btn"
     SUCCESS_TITLE = "#success-container h3"
     SUCCESS_MESSAGE = "#success-msg"
+
+    # --- SauceDemo ---
+    SAUCE_ADD_TO_CART_PRODUCT_1 = "[data-test='add-to-cart-sauce-labs-backpack']"
+    SAUCE_CART_BADGE = "[data-test='shopping-cart-badge']"
+    SAUCE_CART_BUTTON = "[data-test='shopping-cart-link']"
+    SAUCE_PROCEED_TO_CHECKOUT_BUTTON = "[data-test='checkout']"
+    SAUCE_CART_TOTAL = "[data-test='total-label']"
+    SAUCE_FIRST_NAME_INPUT = "[data-test='firstName']"
+    SAUCE_LAST_NAME_INPUT = "[data-test='lastName']"
+    SAUCE_POSTAL_CODE_INPUT = "[data-test='postalCode']"
+    SAUCE_CONTINUE_BUTTON = "[data-test='continue']"
+    SAUCE_FINISH_BUTTON = "[data-test='finish']"
+    SAUCE_SUCCESS_TITLE = "[data-test='complete-header']"
+    SAUCE_SUCCESS_MESSAGE = "[data-test='complete-text']"
