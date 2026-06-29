@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E2E Test Site - Form Submission</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --error: #ef4444;
+            --success: #22c55e;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem 0;
+        }
+
+        .form-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-align: center;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        input[type="text"], input[type="email"], input[type="date"], select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: #0f172a;
+            color: var(--text-color);
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .checkbox-item input {
+            cursor: pointer;
+            accent-color: var(--primary);
+            width: 1.1rem;
+            height: 1.1rem;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            margin-top: 0.5rem;
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1.5rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .message {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .error {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--error);
+            color: #fca5a5;
+        }
+
+        .success {
+            background-color: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--success);
+            color: #86efac;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <h2>Form Submission</h2>
+    <div class="subtitle">Complete the fields below to practice automation</div>
+
+    <div id="error-msg" class="message error"></div>
+    <div id="success-msg" class="message success"></div>
+
+    <form id="practice-form" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="john@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="role">Job Role</label>
+            <select id="role">
+                <option value="">Select a role</option>
+                <option value="qa">QA Engineer</option>
+                <option value="developer">Developer</option>
+                <option value="manager">Project Manager</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Interests</label>
+            <div class="checkbox-group">
+                <label class="checkbox-item">
+                    <input type="checkbox" id="interest-automation" value="automation">
+                    Automation Testing
+                </label>
+                <label class="checkbox-item">
+                    <input type="checkbox" id="interest-manual" value="manual">
+                    Manual Testing
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob">
+        </div>
+
+        <div class="form-group">
+            <label for="file-upload">Upload CV (PDF/TXT/PNG)</label>
+            <div class="file-upload-wrapper">
+                <input type="file" id="file-upload">
+            </div>
+        </div>
+
+        <button type="submit" id="submit-btn">Submit Form</button>
+    </form>
+</div>
+
+<script>
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        const fullname = document.getElementById('fullname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const role = document.getElementById('role').value;
+        const automationChecked = document.getElementById('interest-automation').checked;
+        const manualChecked = document.getElementById('interest-manual').checked;
+        const dob = document.getElementById('dob').value;
+        const fileInput = document.getElementById('file-upload');
+        
+        const errorMsg = document.getElementById('error-msg');
+        const successMsg = document.getElementById('success-msg');
+
+        errorMsg.style.display = 'none';
+        successMsg.style.display = 'none';
+
+        // Basic Validations
+        if (!fullname) {
+            errorMsg.innerText = 'Full Name is required';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (!email) {
+            errorMsg.innerText = 'Email is required';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (!role) {
+            errorMsg.innerText = 'Please select a job role';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (!automationChecked && !manualChecked) {
+            errorMsg.innerText = 'Please select at least one interest';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (!dob) {
+            errorMsg.innerText = 'Date of Birth is required';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (fileInput.files.length === 0) {
+            errorMsg.innerText = 'Please upload your CV file';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        // File upload success
+        const fileName = fileInput.files[0].name;
+        successMsg.innerText = `Form submitted successfully! Uploaded: ${fileName}`;
+        successMsg.style.display = 'block';
+    }
+</script>
+</body>
+</html>

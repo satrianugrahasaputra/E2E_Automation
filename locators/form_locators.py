@@ -1,0 +1,11 @@
+class FormLocators:
+    FULLNAME_INPUT = "#fullname"
+    EMAIL_INPUT = "#email"
+    ROLE_SELECT = "#role"
+    INTEREST_AUTOMATION_CHECKBOX = "#interest-automation"
+    INTEREST_MANUAL_CHECKBOX = "#interest-manual"
+    DOB_INPUT = "#dob"
+    FILE_INPUT = "#file-upload"
+    SUBMIT_BUTTON = "#submit-btn"
+    ERROR_MESSAGE = "#error-msg"
+    SUCCESS_MESSAGE = "#success-msg"

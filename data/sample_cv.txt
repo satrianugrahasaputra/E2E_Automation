@@ -1,0 +1,3 @@
+This is a dummy CV file for automation testing purposes.
+Name: John Doe
+Role: Senior QA Engineer
