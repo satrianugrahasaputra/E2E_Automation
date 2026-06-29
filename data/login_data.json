@@ -1,0 +1,37 @@
+[
+  {
+    "scenario": "Login berhasil",
+    "username": "standard_user",
+    "password": "secret_sauce",
+    "expected_status": "success",
+    "error_message": ""
+  },
+  {
+    "scenario": "Username salah",
+    "username": "wrong_user",
+    "password": "secret_sauce",
+    "expected_status": "fail",
+    "error_message": "Epic sadface: Username and password do not match any user in this service"
+  },
+  {
+    "scenario": "Password salah",
+    "username": "standard_user",
+    "password": "wrong_password",
+    "expected_status": "fail",
+    "error_message": "Epic sadface: Password is incorrect"
+  },
+  {
+    "scenario": "Username kosong",
+    "username": "",
+    "password": "secret_sauce",
+    "expected_status": "fail",
+    "error_message": "Username is required"
+  },
+  {
+    "scenario": "Password kosong",
+    "username": "standard_user",
+    "password": "",
+    "expected_status": "fail",
+    "error_message": "Password is required"
+  }
+]

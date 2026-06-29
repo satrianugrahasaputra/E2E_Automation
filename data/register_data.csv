@@ -1,0 +1,6 @@
+scenario,username,email,password,confirm_password,expected_status,error_message
+Semua field valid,qa_user_1,qa_user_1@example.com,password123,password123,success,
+Email tidak valid,qa_user_2,invalid_email,password123,password123,fail,Email address is invalid
+Password terlalu pendek,qa_user_3,qa_user_3@example.com,123,123,fail,Password must be at least 6 characters
+Password tidak sama,qa_user_4,qa_user_4@example.com,password123,different123,fail,Passwords do not match
+Semua field kosong,,,,,fail,All fields are required
