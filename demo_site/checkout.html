@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E2E Test Site - Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --border: #334155;
+            --success: #22c55e;
+            --error: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .checkout-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-weight: 700;
+            font-size: 1.8rem;
+            text-align: center;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            text-align: center;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: #0f172a;
+            color: var(--text-color);
+            font-family: inherit;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .message {
+            padding: 0.75rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .error {
+            background-color: rgba(239, 68, 68, 0.15);
+            border: 1px solid var(--error);
+            color: #fca5a5;
+        }
+
+        .success {
+            background-color: rgba(34, 197, 94, 0.15);
+            border: 1px solid var(--success);
+            color: #86efac;
+            text-align: center;
+        }
+
+        .success h3 {
+            margin-top: 0;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="checkout-card">
+    <div id="checkout-form-container">
+        <h2>Checkout Info</h2>
+        <div class="subtitle">Complete your shipping information</div>
+
+        <div id="error-msg" class="message error"></div>
+
+        <form id="checkout-form" onsubmit="handleCheckout(event)">
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" placeholder="John">
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" placeholder="Doe">
+            </div>
+            <div class="form-group">
+                <label for="postal-code">Postal/Zip Code</label>
+                <input type="text" id="postal-code" placeholder="12345">
+            </div>
+            <button type="submit" id="finish-btn">Finish Checkout</button>
+        </form>
+    </div>
+
+    <div id="success-container" style="display: none;">
+        <div class="success">
+            <h3>Thank you for your order!</h3>
+            <p id="success-msg">Your order has been placed successfully and will be shipped soon.</p>
+        </div>
+        <button onclick="backToShop()">Back to Shop</button>
+    </div>
+</div>
+
+<script>
+    function handleCheckout(event) {
+        event.preventDefault();
+        const firstName = document.getElementById('first-name').value.trim();
+        const lastName = document.getElementById('last-name').value.trim();
+        const postalCode = document.getElementById('postal-code').value.trim();
+        const errorMsg = document.getElementById('error-msg');
+
+        errorMsg.style.display = 'none';
+
+        if (!firstName) {
+            errorMsg.innerText = 'First Name is required';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (!lastName) {
+            errorMsg.innerText = 'Last Name is required';
+            errorMsg.style.display = 'block';
+            return;
+        }
+        if (!postalCode) {
+            errorMsg.innerText = 'Postal Code is required';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        // Complete Order
+        localStorage.removeItem('cart'); // Empty cart
+        document.getElementById('checkout-form-container').style.display = 'none';
+        document.getElementById('success-container').style.display = 'block';
+    }
+
+    function backToShop() {
+        window.location.href = 'index.html';
+    }
+</script>
+</body>
+</html>
